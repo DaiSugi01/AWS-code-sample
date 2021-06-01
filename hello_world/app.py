@@ -1,6 +1,5 @@
 import boto3
 from boto3.dynamodb.conditions import Key, Attr
-import json
 from typing import Dict, List
 
 

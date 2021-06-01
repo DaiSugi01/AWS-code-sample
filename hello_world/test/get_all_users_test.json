@@ -230,32 +230,36 @@
   },
   "test_case_1": {
     "input": {
-      "user_id": "abc123",
-      "user_first_name": "first",
-      "user_last_name": "last",
-      "user_image_path": "image",
-      "user_birth": "birth",
-      "user_email": "email",
-      "user_phone": "phone",
-      "user_type": "student",
-      "created_date": "2020-01-13 10:23:45.678",
-      "updated_date": "2020-01-14 10:23:45.678"
-    },
-    "output": {
-      "user_id": "abc123",
-      "user_first_name": "first",
-      "user_last_name": "last",
-      "user_image_path": "image",
-      "user_birth": "birth",
-      "user_email": "email",
-      "user_phone": "phone",
+      "user_id": "",
+      "user_first_name": "",
+      "user_last_name": "",
+      "user_image_path": "",
+      "user_birth": "",
+      "user_email": "",
+      "user_phone": "",
       "user_parent_first_name": "",
       "user_parent_last_name": "",
       "user_parent_email": "",
       "user_parent_phone": "",
-      "user_type": "student",
-      "created_date": "2020-01-13 10:23:45.678",
-      "updated_date": "2020-01-14 10:23:45.678"
+      "user_type": "",
+      "created_date": "",
+      "updated_date": ""
+    },
+    "output": {
+      "user_id": "",
+      "user_first_name": "",
+      "user_last_name": "",
+      "user_image_path": "",
+      "user_birth": "",
+      "user_email": "",
+      "user_phone": "",
+      "user_parent_first_name": "",
+      "user_parent_last_name": "",
+      "user_parent_email": "",
+      "user_parent_phone": "",
+      "user_type": "",
+      "created_date": "",
+      "updated_date": ""
     }
   },
   "test_case_2": {
@@ -290,6 +294,26 @@
       "user_type": "student",
       "created_date": "2020-01-13 10:23:45.678",
       "updated_date": "2020-01-14 10:23:45.678"
+    }
+  },
+    "test_case_3": {
+    "input": {
+    },
+    "output": {
+      "user_id": "",
+      "user_first_name": "",
+      "user_last_name": "",
+      "user_image_path": "",
+      "user_birth": "",
+      "user_email": "",
+      "user_phone": "",
+      "user_parent_first_name": "",
+      "user_parent_last_name": "",
+      "user_parent_email": "",
+      "user_parent_phone": "",
+      "user_type": "",
+      "created_date": "",
+      "updated_date": ""
     }
   }
 }

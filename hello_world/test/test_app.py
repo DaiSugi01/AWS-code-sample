@@ -20,10 +20,10 @@ class TestLambda(object):
         del self.test_cases
         del self.mock_table
 
-    def test_create_user_obj_without_optional(self):
+    def test_create_user_obj_with_blank(self):
         """
         test case 1
-            - input object without optional values
+            - input object which values are blank
         """
         res1 = app.create_user_obj(self.test_cases['test_case_1']['input'])
         assert res1 == self.test_cases['test_case_1']['output']
@@ -31,14 +31,22 @@ class TestLambda(object):
     def test_create_user_obj_with_optional(self):
         """
         test case 2
-            - input object with optional values
+            - input object which has optional values
         """
         res = app.create_user_obj(self.test_cases['test_case_2']['input'])
         assert res == self.test_cases['test_case_2']['output']
 
-    def test_lambda_handler_only_students(self):
+    def test_create_user_obj_without_any_values(self):
         """
         test case 3
+            - input object which does not have any keys
+        """
+        res = app.create_user_obj(self.test_cases['test_case_3']['input'])
+        assert res == self.test_cases['test_case_3']['output']
+
+    def test_lambda_handler_only_students(self):
+        """
+        test case 4
             - check lambda whether response array is sorted based on created_date or not
             - should include only student data.
         """
