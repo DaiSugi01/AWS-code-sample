@@ -1,26 +1,49 @@
-import unittest
-
-import app
+from moto import mock_dynamodb2
 import json
 
+import app
+from test_util import create_mock_table
 
-class MainTest(unittest.TestCase):
-    def test_create_user_obj1(self):
-        """
-        test case 1 - input object without optional values
-        """
-        test_cases_json = open('get_all_users_test.json', 'r')
-        test_cases = json.load(test_cases_json)
 
-        res1 = app.create_user_obj(test_cases['test_case_1']['input'])
-        self.assertDictEqual(res1, test_cases['test_case_1']['output'])
+@mock_dynamodb2
+class TestLambda(object):
+    def setup_method(self, method):
+        print('setup. work before running the test')
+        self.test_cases_json = open('get_all_users_test.json', 'r')
+        self.test_cases = json.load(self.test_cases_json)
+        self.mock_table = create_mock_table()
+        [self.mock_table.put_item(Item=data) for data in self.test_cases['mock_data']]
 
-    def test_create_user_obj2(self):
-        """
-        test case 2 - input object with optional values
-        """
-        test_cases_json = open('get_all_users_test.json', 'r')
-        test_cases = json.load(test_cases_json)
+    def teardown_method(self, method) -> None:
+        print('clean up. work after running the test')
+        self.test_cases_json.close()
+        del self.test_cases
+        del self.mock_table
 
-        res2 = app.create_user_obj(test_cases['test_case_2']['input'])
-        self.assertDictEqual(res2, test_cases['test_case_2']['output'])
+    def test_create_user_obj_without_optional(self):
+        """
+        test case 1
+            - input object without optional values
+        """
+        res1 = app.create_user_obj(self.test_cases['test_case_1']['input'])
+        assert res1 == self.test_cases['test_case_1']['output']
+
+    def test_create_user_obj_with_optional(self):
+        """
+        test case 2
+            - input object with optional values
+        """
+        res = app.create_user_obj(self.test_cases['test_case_2']['input'])
+        assert res == self.test_cases['test_case_2']['output']
+
+    def test_lambda_handler_only_students(self):
+        """
+        test case 3
+            - check lambda whether response array is sorted based on created_date or not
+            - should include only student data.
+        """
+        res = app.lambda_handler(self.test_cases['mockEvent'],
+                                 self.test_cases['mockContext'])
+
+        assert res['statusCode'] == self.test_cases['mockResult']['statusCode']
+        assert res['body'] == self.test_cases['mockResult']['body']

@@ -1,5 +1,5 @@
 import boto3
-from boto3.dynamodb.conditions import Key
+from boto3.dynamodb.conditions import Key, Attr
 import json
 from typing import Dict, List
 
@@ -58,7 +58,7 @@ def create_user_obj(user_info: Dict) -> Dict:
 def lambda_handler(event, context):
     """
     Get all user data
-    Created by Daiki Sugihara
+    Created by Daiki
     :param event: event info
     :param context: context info
     :return: statusCode, user info
@@ -70,7 +70,10 @@ def lambda_handler(event, context):
     # Get all user data
     dynamodb = boto3.resource('dynamodb', region_name='us-east-2')
     table = dynamodb.Table(table_name)
-    resp = table.query(KeyConditionExpression=Key(pk).eq(pk_val))
+    resp = table.query(
+        KeyConditionExpression=Key(pk).eq(pk_val),
+        FilterExpression=Attr("user_type").eq("student")
+    )
 
     res: List[Dict] = []
     for item in resp['Items']:
@@ -81,5 +84,5 @@ def lambda_handler(event, context):
 
     return {
         'statusCode': 200,
-        'body': json.dumps(res)
+        'body': res
     }
