@@ -57,7 +57,7 @@ def create_user_obj(user_info: Dict) -> Dict:
 
 def lambda_handler(event, context):
     """
-    Get all user data
+    Get all student data
     Created by Daiki
     :param event: event info
     :param context: context info
@@ -67,7 +67,7 @@ def lambda_handler(event, context):
     pk = 'PK'
     pk_val = 'user'
 
-    # Get all user data
+    # Get all student data
     dynamodb = boto3.resource('dynamodb', region_name='us-east-2')
     table = dynamodb.Table(table_name)
     resp = table.query(
